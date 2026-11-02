@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="sheet" x1="23" y1="27" x2="54" y2="104" gradientUnits="userSpaceOnUse"><stop stop-color="#fff0ac"/><stop offset=".5" stop-color="#f9d775"/><stop offset="1" stop-color="#edbf54"/></linearGradient>
+    <linearGradient id="fold" x1="39" y1="26" x2="81" y2="99" gradientUnits="userSpaceOnUse"><stop stop-color="#ebc15b"/><stop offset=".55" stop-color="#dcae43"/><stop offset="1" stop-color="#f1cc71"/></linearGradient>
+    <linearGradient id="front" x1="70" y1="30" x2="104" y2="99" gradientUnits="userSpaceOnUse"><stop stop-color="#fff2b5"/><stop offset=".55" stop-color="#ffe091"/><stop offset="1" stop-color="#efc05a"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-25%" width="160%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#a99456" flood-opacity=".18"/></filter>
+  </defs>
+  <ellipse cx="62" cy="107" rx="40" ry="6" fill="#e4d7ad" opacity=".36"/>
+  <g filter="url(#shadow)">
+    <path d="m18 35 19-10c2-1 4-1 6 0l19 11 25-12c3-1 5 0 6 3l17 60c1 3 0 5-3 7l-23 11c-2 1-4 1-6 0L57 93l-23 11c-4 2-7 0-8-4L10 43c-1-4 2-6 8-8Z" fill="#d2a647"/>
+    <path d="m17 31 18-9c2-1 5-1 7 0l19 12c2 1 4 1 6 0l19-10c3-2 6-1 7 3l15 56c2 4 0 7-3 8l-21 10c-2 2-5 2-8 0L58 90c-2-1-4-1-7 0l-18 10c-4 2-7 0-8-4L10 40c-1-4 1-6 7-9Z" fill="url(#sheet)" stroke="#cda447" stroke-width="2" stroke-linejoin="round"/>
+    <path d="m38 22 25 14 18 66-25-14Z" fill="url(#fold)"/>
+    <path d="m63 36 23-12c3-2 6-1 7 3l15 56c2 4 0 7-3 8l-24 11Z" fill="url(#front)"/>
+    <path d="m38 24 18 63m7-49 18 62" fill="none" stroke="#cca245" stroke-width="2" stroke-linecap="round"/>
+    <path d="m16 36 21-10 25 14 25-12" fill="none" stroke="#fff6cc" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="m19 44 10 36m45-37 10 36" stroke="#fff3c1" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>
+    <ellipse cx="32" cy="53" rx="4.5" ry="6" fill="#d8aa45" opacity=".62" transform="rotate(-17 32 53)"/>
+    <ellipse cx="39" cy="79" rx="3.3" ry="4.5" fill="#d8aa45" opacity=".55" transform="rotate(-17 39 79)"/>
+    <ellipse cx="87" cy="52" rx="4" ry="5.5" fill="#dfb24d" opacity=".7" transform="rotate(-17 87 52)"/>
+    <ellipse cx="94" cy="77" rx="3" ry="4" fill="#dfb24d" opacity=".6" transform="rotate(-17 94 77)"/>
+  </g>
+</svg>

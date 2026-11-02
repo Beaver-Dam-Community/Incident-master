@@ -1,0 +1,17 @@
+node_modules/
+__pycache__/
+*.py[cod]
+*.log
+test-results/
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+.openai/
+.sites/
+tmp/
+output/

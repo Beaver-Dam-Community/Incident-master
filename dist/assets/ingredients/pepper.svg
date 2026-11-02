@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="body" x1="25" y1="26" x2="96" y2="101" gradientUnits="userSpaceOnUse"><stop stop-color="#c2e6ad"/><stop offset=".5" stop-color="#8dcc8b"/><stop offset="1" stop-color="#64a576"/></linearGradient>
+    <linearGradient id="cut" x1="42" y1="43" x2="76" y2="85" gradientUnits="userSpaceOnUse"><stop stop-color="#faf5c9"/><stop offset="1" stop-color="#d3e4b5"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-25%" width="160%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#6f9970" flood-opacity=".2"/></filter>
+  </defs>
+  <ellipse cx="62" cy="106" rx="35" ry="6" fill="#c2d5b9" opacity=".35"/>
+  <g filter="url(#shadow)">
+    <rect x="18" y="31" width="87" height="79" rx="23" fill="#5d996e"/>
+    <rect x="15" y="25" width="87" height="79" rx="23" fill="url(#body)" stroke="#5d9b6a" stroke-width="2"/>
+    <path d="M28 49c1-9 7-14 17-14" fill="none" stroke="#e5f6cd" stroke-width="6" stroke-linecap="round" opacity=".9"/>
+    <path d="M58 48c-17-14-32 2-23 17-13 16 4 31 21 20 16 12 34-4 23-18 10-15-4-33-21-19Z" fill="url(#cut)" stroke="#4f9063" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M57 49c-5 8-5 17-2 25m3-12c8-2 13 0 18 6m-21 4-12 8" fill="none" stroke="#78ae7c" stroke-width="3" stroke-linecap="round"/>
+    <path d="M60 31c0-8 4-13 10-15" fill="none" stroke="#4d8e5a" stroke-width="7" stroke-linecap="round"/>
+    <path d="M60 30c0-6 3-10 7-12" fill="none" stroke="#9acb88" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="47" cy="58" rx="2.5" ry="3.5" fill="#fffbe4" transform="rotate(-25 47 58)"/>
+    <ellipse cx="66" cy="77" rx="2.5" ry="3.5" fill="#fffbe4" transform="rotate(28 66 77)"/>
+  </g>
+</svg>

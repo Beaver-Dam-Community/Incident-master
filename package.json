@@ -1,0 +1,13 @@
+{
+  "name": "incident-master",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.cjs"
+  },
+  "description": "클라우드 침해사고 대응 순서를 꼬치로 배우는 BEAVER DAM 부스 체험형 웹앱",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Beaver-Dam-Community/Incident-master.git"
+  }
+}

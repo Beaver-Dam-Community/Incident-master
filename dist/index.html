@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4fbff">
+  <meta name="description" content="BEAVER DAM 클라우드 사고 대응 꼬치 게임. 사고와 재료 안내를 읽고 시간 제한 없이 조립해요. 정답 꼬치는 체험 종료 후 공개합니다.">
+  <title>침해대응의 달인 · BEAVER DAM</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preload" href="assets/Jua-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="participant.css?v=15">
+  <link rel="stylesheet" href="typography.css?v=20">
+  <script defer src="scenarios.js?v=18"></script>
+  <script defer src="game-engine.js?v=11"></script>
+  <script defer src="app.js?v=20"></script>
+</head>
+<body>
+  <div class="page-halo halo-one" aria-hidden="true"></div>
+  <div class="page-halo halo-two" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#" id="brand-home" aria-label="BEAVER DAM 게임 안내">
+      <img class="brand-logo" src="assets/beaver-dam-logo.jpg" alt="구름과 방패를 든 비버 BEAVER DAM 커뮤니티 로고" width="64" height="64" decoding="async">
+      <span class="brand-copy"><strong>BEAVER DAM</strong><span>클라우드 보안 커뮤니티</span></span>
+    </a>
+    <div class="header-center"><span class="tiny-dot"></span> DIGITAL FORENSICS WEEK 2026</div>
+    <nav class="header-actions" aria-label="화면 도구">
+      <button class="header-guide" data-action="guide-open">게임 방법</button>
+      <button class="icon-button" id="sound-toggle" aria-label="소리 켜기" title="소리 켜기"></button>
+      <button class="icon-button" id="fullscreen-toggle" aria-label="전체 화면" title="전체 화면"></button>
+      <button class="icon-button" id="settings-open" aria-label="시나리오 설정" title="시나리오 설정"><span id="settings-icon"></span></button>
+    </nav>
+  </header>
+  <main id="app"></main>
+  <footer class="site-footer"><span>BEAVER DAM <span class="footer-dot">✦</span> 함께 배우는 클라우드 보안</span><span id="footer-note">한 팀 · 한 주문서 · 한 번의 승부</span></footer>
+  <dialog id="settings-dialog" class="modal settings-modal" aria-labelledby="settings-title"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">게임을 진행하려면 브라우저의 자바스크립트를 켜 주세요.</p></noscript>
+</body>
+</html>

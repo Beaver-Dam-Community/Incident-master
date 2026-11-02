@@ -1,0 +1,192 @@
+/* Participant screen */
+.player-mission,.player-result{position:relative}
+.scenario-code{display:block;text-align:right;margin-top:9px;font-size:11px;line-height:1.4;font-weight:400;letter-spacing:.3px;color:#718797}
+.player-mission>.scenario-code{position:absolute;right:0;bottom:0;margin:0}
+@media(max-width:760px){.player-mission>.scenario-code{position:static;margin-top:8px}}
+.answer-actions{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-shrink:0}
+@media(max-width:760px){.answer-actions{flex-direction:column;align-items:flex-end;gap:10px}.answer-top{align-items:flex-start}}
+.mission-status{display:flex;align-items:center;gap:16px}
+.elapsed-timer{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid #c5e4f4;border-radius:16px;background:#fff;color:#39738e;white-space:nowrap}
+.elapsed-timer svg{width:20px;height:20px;flex-shrink:0}
+.elapsed-timer>span:first-of-type{font-size:12px;font-weight:700}
+.elapsed-value{font-family:Jua,sans-serif;font-size:24px;font-variant-numeric:tabular-nums;line-height:1;min-width:65px;text-align:center;color:#145a80}
+@media(max-width:760px){.mission-status{gap:8px}.elapsed-timer{gap:6px;padding:7px 10px}.elapsed-timer svg{width:17px;height:17px}.elapsed-timer>span:first-of-type{font-size:10px}.elapsed-value{font-size:21px;min-width:56px}}
+.ingredient-art{display:block;object-fit:contain;width:100%;height:100%;user-select:none}
+.mini-food .ingredient-art,.float-food .ingredient-art{width:100%;height:100%}
+.player-materials .material-card[data-ingredient]{position:relative;background:linear-gradient(120deg,var(--ingredient-wash,#fff),#fff 65%)}
+.material-card[data-ingredient="tomato"]{--ingredient-wash:#fff0ea;--ingredient-edge:#efb6a8}
+.material-card[data-ingredient="pepper"]{--ingredient-wash:#eef8e9;--ingredient-edge:#b5d9af}
+.material-card[data-ingredient="meat"]{--ingredient-wash:#fbf0e9;--ingredient-edge:#d9b7a3}
+.material-card[data-ingredient="shrimp"]{--ingredient-wash:#fff3e6;--ingredient-edge:#f2c8a2}
+.material-card[data-ingredient="cheese"]{--ingredient-wash:#fff8dc;--ingredient-edge:#e8d494}
+.material-card[data-ingredient="bacon"]{--ingredient-wash:#fff0ed;--ingredient-edge:#e9b5b1}
+.player-materials .material-card[data-ingredient]:not(.resting){border-color:var(--ingredient-edge)}
+.player-materials .material-card[data-ingredient].resting{background:#edf3f7}
+.player-materials .material-card .material-icon{width:88px;height:88px;filter:none}
+.player-result .food-icon.ingredient-art{width:94px;height:94px;margin-top:3px;margin-bottom:7px}
+@media(min-width:1000px) and (max-height:760px){.player-materials .material-card .material-icon{width:78px;height:78px}.player-result .food-icon.ingredient-art{width:82px;height:82px}}
+@media(max-width:999px){.player-materials .material-card .material-icon{width:65px;height:65px}}
+@media(max-width:760px){.player-materials .material-card .material-icon{width:64px;height:64px}.player-result .food-icon.ingredient-art{width:72px;height:72px}}
+body{min-height:100svh;display:flex;flex-direction:column}
+.site-header{max-width:1340px;width:100%;min-height:82px;padding:14px 32px;flex-shrink:0}
+.brand-logo{width:50px;height:50px}.brand-copy strong{font-size:20px}.brand-copy>span{font-size:10px}
+.header-center{font-size:9px;letter-spacing:1.3px}.icon-button{width:36px;height:36px;color:#54849b}.header-actions{gap:8px}
+#app{max-width:1280px;width:100%;margin:0 auto;padding:0 32px;flex:1}
+.site-footer{max-width:1216px;width:calc(100% - 64px);margin:18px auto 0;padding:12px 0 14px;font-size:10px;color:#718b9b;flex-shrink:0}
+h1:focus{outline:none}
+.player-home{padding:12px 0 0}.player-home .home-hero{grid-template-columns:1.2fr 1fr;gap:32px;min-height:352px}
+.player-home .hero-copy h1{font-size:54px;line-height:1.17;margin:17px 0;letter-spacing:-1px}
+.player-home .hero-description{font-size:18px;margin:0 0 19px;line-height:1.6;color:#3e647d}
+.player-home .hero-tags{margin-bottom:24px}.player-home .hero-art{height:340px}
+.player-home .mascot-image-card{width:257px;height:257px}.player-home .mascot-orbit{width:310px;height:310px}
+.player-home .float-food.one{top:41px;right:8px}.player-home .float-food.two{bottom:18px;left:10px}
+.player-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:21px}
+.player-rules>div{display:flex;align-items:center;gap:14px;background:#ffffffdb;border:1px solid #deebf4;border-radius:16px;padding:20px}
+.player-rules span{width:35px;height:35px;border-radius:10px;background:#e1f2fc;color:#3e7e9f;display:grid;place-items:center;font-family:Jua,sans-serif;font-size:18px}
+.player-rules>div:nth-child(2) span{background:#ffebe2;color:#b77d67}.player-rules>div:nth-child(3) span{background:#e3f2e9;color:#60866e}
+.player-rules strong{font-family:Jua,sans-serif;font-size:21px;font-weight:400}.player-home .roll-reminder{font-size:13px;margin-bottom:0;padding-top:18px}
+.player-mission{padding-top:9px}.player-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.mission-kicker{font-size:13px;color:#4d839e;font-weight:700;letter-spacing:.3px}
+.player-mission>h1{font-size:34px;line-height:1.25;margin:0 0 12px;color:#113f5b;letter-spacing:-.5px}
+.scenario-summary{font-size:18px;line-height:1.7;color:#385f77;word-break:keep-all;overflow-wrap:break-word;margin:0 0 21px;max-width:1150px}
+.player-materials .materials-heading{margin-bottom:12px}.player-materials .materials-heading h2{font-size:19px;color:#315e77}
+.material-order-note{font-size:12px;color:#69889b}.player-materials .materials-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.player-materials .material-card{background:#fff;border:1px solid #dcebf4;box-shadow:0 4px 16px #1b5d7b05;border-radius:16px;padding:17px 18px;min-height:132px;gap:15px;flex-direction:row;align-items:center}
+.player-materials .material-icon{width:78px;height:78px;margin:0;flex-shrink:0}
+.player-materials .material-card h3{font-size:21px;color:#205977;margin:0 0 7px}
+.player-materials .material-card p{font-size:17px;line-height:1.5;color:#254d65;margin:0;word-break:keep-all;overflow-wrap:break-word}
+.player-materials .material-card.resting{background:#edf3f7;border-style:dashed;box-shadow:none}
+.player-materials .material-card.resting .material-icon{opacity:.45}.player-materials .material-card.resting h3{color:#6b8596}
+.player-materials .material-card.resting p{color:#718592;font-size:15px}
+.player-playbar{margin-top:18px;padding:15px 20px;border-radius:16px;background:#e4f3fc;display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid #d6eaf6}
+.player-playbar strong{display:block;font-family:Jua,sans-serif;font-size:23px;font-weight:400;color:#175a7c;line-height:1.3}
+.player-playbar p{font-size:14px;color:#4e748a;margin:5px 0 0;line-height:1.5}
+.player-playbar .primary{min-width:150px;min-height:50px;padding:12px 23px;font-size:20px}
+.player-playbar .reveal-control{background:white;border-color:#bddeef;color:#356e8e;font-size:17px;min-height:46px;min-width:138px}
+.player-roll-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:#648398;margin-top:10px}
+.player-result{padding-top:12px}.answer-top{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:18px}
+.answer-top h1{font-size:34px;margin:6px 0 0;color:#145a80;line-height:1.2}.answer-top .mission-kicker{font-size:13px;color:#5d8196}
+.answer-top .secondary{background:#fff;color:#477b95;border-color:#cde2ee;font-size:15px}
+.player-result .recipe-card{padding:21px 22px 23px;margin-bottom:16px}.player-result .recipe-heading h2{font-size:19px}
+.player-result .recipe-items{gap:15px;margin-top:14px}.player-result .food-icon{width:84px;height:84px;margin:8px 0 12px}
+.player-result .skewer-track{top:70px;left:35px;right:35px}.player-result .recipe-position{font-size:12px;height:20px}
+.player-result .ingredient-name{font-size:19px;margin-bottom:8px}.player-result .ingredient-action{font-size:14px;line-height:1.6;color:#3f657c;max-width:170px;min-height:45px}
+.answer-explanation{border:1px solid #dbe9f3;border-radius:16px;background:#ffffffb8;overflow:hidden}
+.answer-explanation>summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;font-family:Jua,sans-serif;font-size:18px;color:#467b96;padding:17px 21px}
+.answer-explanation>summary::-webkit-details-marker{display:none}.answer-explanation>summary::after{content:'＋';font-size:22px;color:#7c9cad}
+.answer-explanation[open]>summary::after{content:'−'}.explanation-body{padding:2px 23px 24px;border-top:1px solid #e8f0f6}
+.explanation-body p{font-size:15px;color:#42657b;line-height:1.9;margin:12px 0}.explanation-body .explanation-key{font-weight:700;color:#285d7c}
+.original-case{padding:13px 17px;background:#f2f9fd;border-radius:12px;margin:18px 0}.original-case h2{font-size:17px;color:#477891;margin:0}
+.original-case p{font-size:14px;margin-bottom:0}.explanation-body .explain-step{margin:18px 0;border-left-color:#cbe9f9;padding-left:14px}
+.explanation-body .explain-step strong{font-size:15px;color:#2c6789}.explanation-body .explain-step p{font-size:14px;margin:5px 0}
+.pool-option .pool-name{font-size:16px}.settings-heading h2{font-size:25px}.modal p{font-size:13px}
+@media(min-width:1500px){.player-home{padding-top:24px}.player-home .home-hero{min-height:410px}.player-home .hero-copy h1{font-size:62px}.player-home .hero-art{height:390px}.player-mission{padding-top:22px}.player-materials .material-card{min-height:145px}.scenario-summary{margin-bottom:25px}}
+@media(min-width:1000px) and (max-height:760px){.site-header{min-height:74px;padding-top:10px;padding-bottom:10px}.player-home .home-hero{min-height:318px}.player-home .hero-copy h1{font-size:48px}.player-home .hero-art{height:300px}.player-rules{margin-top:14px}.player-rules>div{padding:16px}.player-mission>h1{font-size:31px;margin-bottom:9px}.scenario-summary{font-size:17px;line-height:1.6;margin-bottom:16px}.player-materials .material-card{min-height:120px;padding:13px 16px}.player-materials .material-icon{width:68px;height:68px}.player-materials .material-card p{font-size:16px}.player-playbar{margin-top:15px;padding:13px 18px}.site-footer{margin-top:13px}.player-result .food-icon{width:72px;height:72px}.player-result .skewer-track{top:65px}.player-result .recipe-card{padding-bottom:18px}.player-result .ingredient-action{font-size:13px}}
+@media(max-width:999px){.site-header{padding:12px 24px}#app{padding:0 24px}.header-center{display:none}.player-home .hero-copy h1{font-size:44px}.player-home .hero-description{font-size:16px}.player-home .mascot-image-card{width:210px;height:210px}.player-home .mascot-orbit{width:250px;height:250px}.player-rules strong{font-size:17px}.player-rules>div{padding:15px;gap:9px}.player-materials .material-card{gap:10px;padding:14px 12px}.player-materials .material-icon{width:58px;height:58px}.player-materials .material-card p{font-size:15px}.player-materials .material-card h3{font-size:19px}.scenario-summary{font-size:17px}.player-mission>h1{font-size:29px}.site-footer{width:calc(100% - 48px)}}
+@media(max-width:760px){.site-header{min-height:74px;padding:11px 18px}.brand-logo{width:43px;height:43px}.brand-copy strong{font-size:17px}.brand-copy>span{font-size:9px}.brand{gap:8px}.icon-button{width:32px;height:32px}.header-actions{gap:5px}#app{padding:0 18px}.player-home .home-hero{display:flex;flex-direction:column-reverse;gap:8px;min-height:0;align-items:stretch}.player-home .hero-art{height:190px}.player-home .mascot-image-card{width:157px;height:157px;border-width:6px}.player-home .mascot-orbit{width:180px;height:180px}.player-home .float-food{width:40px;height:40px}.player-home .float-food.one{right:14%;top:12px}.player-home .float-food.two{left:15%;bottom:10px}.player-home .eyebrow{font-size:9px}.player-home .hero-copy h1{font-size:37px;margin:12px 0}.player-home .hero-description{font-size:15px}.player-home .hero-tags{margin-bottom:18px}.player-home .primary{font-size:18px}.player-rules{grid-template-columns:1fr;gap:9px;margin-top:23px}.player-rules>div{padding:12px 15px}.player-rules strong{font-size:18px}.player-rules span{width:30px;height:30px;font-size:16px}.player-home .roll-reminder{font-size:11px;justify-content:flex-start}.player-materials .materials-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.player-materials .material-card{flex-direction:column;align-items:flex-start;min-height:160px;padding:14px;gap:6px}.player-materials .material-icon{width:54px;height:54px}.player-materials .material-card p{font-size:15px}.material-order-note{font-size:10px}.player-materials .materials-heading h2{font-size:18px}.player-mission>h1{font-size:26px}.scenario-summary{font-size:16px;line-height:1.7}.player-playbar{padding:14px;gap:14px}.player-playbar strong{font-size:18px}.player-playbar p{font-size:12px}.player-playbar .primary{min-width:108px;font-size:17px;padding:10px 14px}.player-playbar .reveal-control{min-width:103px;font-size:15px;padding:10px}.player-roll-note{font-size:10px}.answer-top h1{font-size:29px}.answer-top .mission-kicker{font-size:11px}.answer-top .secondary{padding:9px 11px;font-size:13px;white-space:nowrap}.player-result .recipe-card{padding:16px 12px}.player-result .recipe-items{gap:6px;overflow-x:auto;grid-template-columns:repeat(var(--count),minmax(80px,1fr));padding-bottom:10px}.player-result .food-icon{width:65px;height:65px}.player-result .ingredient-name{font-size:16px}.player-result .ingredient-action{font-size:12px}.player-result .skewer-track{top:61px}.answer-explanation>summary{font-size:17px;padding:15px 17px}.explanation-body{padding:2px 17px 20px}.site-footer{width:calc(100% - 36px);font-size:9px}}
+
+/* Example walkthrough */
+.player-tutorial .recipe-card{padding:16px 20px 12px;margin-bottom:10px}.player-tutorial .tutorial-flow{padding-top:4px}
+.header-guide{border:0;border-radius:10px;background:#e7f4fc;color:#376e8b;font:14px Jua,sans-serif;padding:9px 13px;cursor:pointer;white-space:nowrap}
+.home-guide-link{display:flex;align-items:center;gap:9px;border:0;background:transparent;color:#467c99;font:17px Jua,sans-serif;padding:14px 0 0;cursor:pointer}.home-guide-link svg{width:18px;height:18px}
+.tutorial-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.tutorial-heading h1{font-size:32px;line-height:1.2;margin:7px 0 0;color:#145a80}.tutorial-close{border:1px solid #d5e6f0;border-radius:12px;background:#fff;color:#60869b;width:38px;height:38px;display:grid;place-items:center;cursor:pointer}.tutorial-close svg{width:19px;height:19px}
+.tutorial-progress{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:17px}.tutorial-progress button{display:flex;align-items:center;justify-content:center;gap:11px;border:1px solid #dceaf3;background:#ffffffa6;border-radius:12px;padding:10px;color:#7591a1;font:18px Jua,sans-serif;cursor:pointer}.tutorial-progress button span{font-size:13px}.tutorial-progress button[aria-current]{background:#dff1fc;color:#1c658c;border-color:#abd6ec;box-shadow:inset 0 -3px 0 #a5d7ee}
+.tutorial-case{display:flex;align-items:center;gap:17px;background:#eaf6fe;padding:14px 18px;border-radius:16px;margin-bottom:15px}.tutorial-case .tag{flex-shrink:0;background:#fff;color:#397492}.tutorial-case p{font-size:17px;line-height:1.6;color:#365f78;margin:0;word-break:keep-all}
+.player-tutorial .material-card{min-height:103px;padding:12px 17px}.player-tutorial .material-card .material-icon{width:67px;height:67px}.player-tutorial .material-card p{font-size:16px}.player-tutorial .materials-heading{margin-bottom:9px}.player-tutorial .material-card h3{font-size:20px;margin-bottom:5px}
+.tutorial-hint{font-size:14px;line-height:1.6;text-align:center;color:#608198;margin:14px 0 0;word-break:keep-all}.tutorial-navigation{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #dcebf4;padding-top:15px;margin-top:16px}.tutorial-navigation>span{color:#6e91a7;font-size:13px}.tutorial-navigation .primary,.tutorial-navigation .secondary{font-size:18px;padding:11px 22px;min-height:46px}
+.tutorial-flow{display:flex;align-items:center;justify-content:center;gap:28px;padding:13px 0 0}.tutorial-flow>div{text-align:center;min-width:150px}.tutorial-flow strong{display:block;font:21px Jua,sans-serif;color:#386f8d}.tutorial-flow div>span{display:block;color:#6c8c9e;font-size:13px;margin-top:5px}.tutorial-flow>span{color:#93b9ca;font-size:22px}
+.tutorial-finish{display:grid;grid-template-columns:1fr 1.2fr;gap:18px}.tutorial-fold-card,.tutorial-finish-card{border-radius:16px;border:1px solid #deebf3;background:#fff;padding:25px;text-align:center;min-height:280px}.tutorial-fold-card{background:linear-gradient(120deg,#fff9e5,#fff2ee)}.tutorial-fold-art{display:flex;align-items:center;justify-content:center;gap:15px;height:101px}.tutorial-fold-art .ingredient-art{width:99px;height:99px}.tutorial-finish h2{font:25px Jua,sans-serif;color:#285c78;margin:13px 0 10px}.tutorial-finish p{font-size:17px;line-height:1.8;color:#52758c;margin:0}.tutorial-cheer{display:inline-block;font:36px Jua,sans-serif;color:#1879a7;transform:rotate(-3deg);padding:15px 0 7px}.tutorial-rule-tags{display:flex;gap:9px;justify-content:center;margin-top:18px}
+@media(min-width:1000px) and (max-height:760px){.player-tutorial{padding-top:5px}.tutorial-heading{margin-bottom:12px}.tutorial-heading h1{font-size:29px}.tutorial-progress{margin-bottom:13px}.tutorial-progress button{padding:6px}.tutorial-case{padding:8px 16px;margin-bottom:12px}.tutorial-case p{font-size:16px}.player-tutorial .material-card{min-height:90px;padding:9px 15px}.player-tutorial .material-card .material-icon{width:60px;height:60px}.tutorial-navigation{margin-top:12px;padding-top:12px}.tutorial-hint{margin-top:11px;font-size:13px}.tutorial-finish-card,.tutorial-fold-card{min-height:270px;padding:21px}}
+@media(max-width:760px){.header-guide{font-size:12px;padding:8px}.tutorial-heading h1{font-size:26px}.tutorial-case{display:block}.tutorial-case p{font-size:15px;margin-top:10px}.tutorial-progress button{font-size:16px;gap:7px}.player-tutorial .material-card{padding:13px;min-height:150px}.player-tutorial .material-card p{font-size:14px}.tutorial-finish{grid-template-columns:1fr}.tutorial-flow{gap:8px}.tutorial-flow>div{min-width:0;flex:1}.tutorial-flow strong{font-size:17px}.tutorial-flow div>span{font-size:11px}.tutorial-navigation .primary,.tutorial-navigation .secondary{font-size:15px;padding:10px 13px}.tutorial-hint{font-size:12px}}
+
+/* Give each action its own space on the booth laptop. */
+@media (min-width:1000px) {
+  .header-actions {gap:12px}
+  .home-guide-link {padding-top:22px}
+  .player-rules {gap:20px;margin-top:28px}
+  .player-rules>div {gap:18px;padding:22px;min-height:88px}
+  .player-home .roll-reminder {padding-top:24px;gap:9px}
+  .player-heading {margin-bottom:12px}
+  .player-mission>h1 {margin-bottom:16px}
+  .scenario-summary {margin-bottom:26px}
+  .player-materials .materials-heading {margin-bottom:16px}
+  .player-materials .materials-grid {gap:20px}
+  .player-materials .material-card {gap:22px;padding:18px 22px}
+  .player-materials .material-card .material-icon {width:76px;height:76px}
+  .player-materials .material-card h3 {margin-bottom:10px}
+  .player-materials .material-card p {line-height:1.65}
+  .player-playbar {margin-top:24px;padding:18px 24px;gap:28px}
+  .player-playbar p {margin-top:8px}
+  .player-roll-note {margin-top:16px;gap:9px}
+  .answer-top {margin-bottom:26px}
+  .player-result .recipe-card {padding:25px 28px 28px;margin-bottom:24px}
+  .player-result .recipe-items {gap:22px;margin-top:22px}
+  .player-result .food-icon.ingredient-art {margin-bottom:14px}
+  .player-result .ingredient-name {margin-bottom:12px}
+  .player-result .ingredient-action {line-height:1.8}
+  .answer-explanation>summary {padding:21px 25px}
+  .explanation-body {padding:8px 28px 28px}
+  .explanation-body .explain-step {margin:24px 0;padding-left:18px}
+  .player-tutorial .tutorial-heading {margin-bottom:20px}
+  .tutorial-progress {gap:16px;margin-bottom:22px}
+  .tutorial-case {gap:24px;padding:16px 22px;margin-bottom:20px}
+  .player-tutorial .materials-heading {margin-bottom:13px}
+  .player-tutorial .material-card {gap:20px;padding:15px 22px}
+  .player-tutorial .material-card .material-icon {width:64px;height:64px}
+  .player-tutorial .material-card h3 {margin-bottom:9px}
+  .tutorial-hint {margin-top:18px}
+  .tutorial-navigation {margin-top:22px;padding-top:18px}
+  .player-tutorial .recipe-card {padding:20px 24px 18px;margin-bottom:16px}
+  .player-tutorial .recipe-items {margin-top:18px}
+  .player-tutorial .food-icon.ingredient-art {margin-bottom:11px}
+  .player-tutorial .ingredient-name {margin-bottom:10px}
+  .player-tutorial .ingredient-action {line-height:1.7}
+  .player-tutorial .tutorial-flow {gap:20px;padding-top:0}
+  .tutorial-flow>div {display:flex;align-items:center;justify-content:center;gap:14px;min-width:0;padding:7px 18px;background:#eaf5fc;border-radius:12px}
+  .tutorial-flow strong {font-size:19px}
+  .tutorial-flow div>span {margin:0;font-size:12px}
+  .tutorial-finish {gap:26px}
+  .tutorial-finish h2 {margin-top:18px;margin-bottom:16px}
+  .tutorial-rule-tags {gap:14px;margin-top:24px}
+}
+@media (min-width:1000px) and (max-height:800px) {
+  .site-footer {margin-top:12px;padding:8px 0 10px;font-size:9px}
+  .player-tutorial .tutorial-heading {margin-bottom:16px}
+  .tutorial-progress {margin-bottom:18px}
+  .tutorial-case {padding:12px 22px;margin-bottom:16px}
+  .player-tutorial .material-card {padding:13px 22px}
+  .tutorial-hint {margin-top:14px}
+  .tutorial-navigation {margin-top:18px;padding-top:16px}
+}
+@media (min-width:1000px) and (min-height:761px) and (max-height:800px) {
+  .player-mission .player-heading {margin-bottom:10px}
+  .player-mission .scenario-summary {margin-bottom:24px}
+  .player-mission .material-card {min-height:126px;padding:16px 22px}
+  .player-mission .player-playbar {padding:16px 24px}
+}
+@media (min-width:1000px) and (max-height:760px) {
+  .home-guide-link {padding-top:20px}
+  .player-rules {margin-top:22px}
+  .player-rules>div {padding:18px;min-height:80px}
+  .player-home .roll-reminder {padding-top:20px}
+  .player-heading {margin-bottom:10px}
+  .player-mission>h1 {margin-bottom:12px}
+  .scenario-summary {margin-bottom:20px}
+  .player-materials .materials-heading {margin-bottom:14px}
+  .player-materials .materials-grid {gap:16px 20px}
+  .player-materials .material-card {min-height:118px;padding:14px 20px;gap:20px}
+  .player-materials .material-card .material-icon {width:68px;height:68px}
+  .player-materials .material-card h3 {margin-bottom:9px}
+  .player-playbar {margin-top:20px;padding:14px 22px}
+  .player-roll-note {margin-top:14px}
+  .player-tutorial .tutorial-heading {margin-bottom:14px}
+  .tutorial-progress {margin-bottom:16px}
+  .tutorial-case {padding:10px 20px;margin-bottom:15px}
+  .player-tutorial .material-card {min-height:92px;padding:12px 20px;gap:18px}
+  .player-tutorial .material-card .material-icon {width:60px;height:60px}
+  .player-tutorial .material-card h3 {margin-bottom:8px}
+  .player-tutorial .materials-heading {margin-bottom:12px}
+  .tutorial-navigation {margin-top:16px;padding-top:14px}
+  .player-tutorial .recipe-card {padding:17px 24px 16px}
+  .player-tutorial .recipe-items {margin-top:16px}
+}

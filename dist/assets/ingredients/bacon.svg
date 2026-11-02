@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="sheet" x1="23" y1="27" x2="54" y2="104" gradientUnits="userSpaceOnUse"><stop stop-color="#ffdbd2"/><stop offset=".5" stop-color="#eda7a1"/><stop offset="1" stop-color="#d98c88"/></linearGradient>
+    <linearGradient id="fold" x1="39" y1="26" x2="81" y2="99" gradientUnits="userSpaceOnUse"><stop stop-color="#e1a29b"/><stop offset=".55" stop-color="#c97d7b"/><stop offset="1" stop-color="#e7ada7"/></linearGradient>
+    <linearGradient id="front" x1="70" y1="30" x2="104" y2="99" gradientUnits="userSpaceOnUse"><stop stop-color="#ffe7da"/><stop offset=".55" stop-color="#f5beb1"/><stop offset="1" stop-color="#e29c95"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-25%" width="160%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#a77575" flood-opacity=".18"/></filter>
+    <clipPath id="bacon-sheet"><path d="m17 31 18-9c2-1 5-1 7 0l19 12c2 1 4 1 6 0l19-10c3-2 6-1 7 3l15 56c2 4 0 7-3 8l-21 10c-2 2-5 2-8 0L58 90c-2-1-4-1-7 0l-18 10c-4 2-7 0-8-4L10 40c-1-4 1-6 7-9Z"/></clipPath>
+  </defs>
+  <ellipse cx="62" cy="107" rx="40" ry="6" fill="#dfc3bd" opacity=".36"/>
+  <g filter="url(#shadow)">
+    <path d="m18 35 19-10c2-1 4-1 6 0l19 11 25-12c3-1 5 0 6 3l17 60c1 3 0 5-3 7l-23 11c-2 1-4 1-6 0L57 93l-23 11c-4 2-7 0-8-4L10 43c-1-4 2-6 8-8Z" fill="#ba7b77"/>
+    <path d="m17 31 18-9c2-1 5-1 7 0l19 12c2 1 4 1 6 0l19-10c3-2 6-1 7 3l15 56c2 4 0 7-3 8l-21 10c-2 2-5 2-8 0L58 90c-2-1-4-1-7 0l-18 10c-4 2-7 0-8-4L10 40c-1-4 1-6 7-9Z" fill="url(#sheet)" stroke="#bc8580" stroke-width="2" stroke-linejoin="round"/>
+    <path d="m38 22 25 14 18 66-25-14Z" fill="url(#fold)"/>
+    <path d="m63 36 23-12c3-2 6-1 7 3l15 56c2 4 0 7-3 8l-24 11Z" fill="url(#front)"/>
+    <g clip-path="url(#bacon-sheet)" fill="none" stroke-linejoin="round">
+      <path d="m6 48 29-9 25 13 29-13 21 8" stroke="#fff0df" stroke-width="8"/>
+      <path d="m14 76 29-10 25 13 29-13 21 8" stroke="#fff0df" stroke-width="8"/>
+      <path d="m10 60 29-10 25 13 29-13 21 8" stroke="#c98580" stroke-width="2.5" opacity=".55"/>
+    </g>
+    <path d="m38 24 18 63m7-49 18 62" fill="none" stroke="#bf8680" stroke-width="2" stroke-linecap="round"/>
+    <path d="m16 36 21-10 25 14 25-12" fill="none" stroke="#fff0e5" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="m19 44 10 36m45-37 10 36" stroke="#ffe6d8" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>
+  </g>
+</svg>
