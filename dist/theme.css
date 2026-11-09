@@ -1,0 +1,133 @@
+/* One shared theme for every screen. html[data-theme] is set before first paint (see index.html). */
+:root,html[data-theme="light"]{
+  --t-bg:#f4f9fc;--t-surface:#fff;--t-surface-2:#eaf4fa;--t-border:#d6e5ee;--t-text:#16324a;--t-text-2:#2d4e66;--t-muted:#557386;
+  --t-accent:#1f6f99;--t-chip-bg:#e1f0f9;--t-chip-text:#25668a;--t-alert-bg:#fff0e8;--t-alert-text:#a4442d;
+  --t-urgent-bg:#fff1ec;--t-urgent-line:#e49a86;--t-urgent-text:#c2492f;--t-shadow:0 10px 30px #1c4a6612;
+  --t-halo-1:#fbe9e88a;--t-halo-2:#e3f5fe66;--t-stage:#e4eff6;--t-backdrop:#26495c55;color-scheme:light}
+html[data-theme="dark"]{
+  --t-bg:#0b1b2b;--t-surface:#12263a;--t-surface-2:#183047;--t-border:#2b465b;--t-text:#eef4f8;--t-text-2:#cbd9e3;--t-muted:#a2b7c6;
+  --t-accent:#8bd3f2;--t-chip-bg:#183a50;--t-chip-text:#a9dcf2;--t-alert-bg:#3b2620;--t-alert-text:#ffb195;
+  --t-urgent-bg:#38232a;--t-urgent-line:#c36854;--t-urgent-text:#ffb195;--t-shadow:0 14px 40px #0005;
+  --t-halo-1:#1b3a5233;--t-halo-2:#12304a55;--t-stage:#081624;--t-backdrop:#000a;color-scheme:dark}
+
+html[data-theme],html[data-theme] body{background:var(--t-bg);color:var(--t-text)}
+html[data-theme] body{transition:background-color .2s,color .2s}
+html[data-theme] .halo-one{background:var(--t-halo-1)}html[data-theme] .halo-two{background:var(--t-halo-2)}
+html[data-theme] h1,html[data-theme] h2,html[data-theme] h3{color:var(--t-text)}
+
+/* Header and footer */
+html[data-theme] .site-header{background:transparent}
+html[data-theme] .brand-copy strong{color:var(--t-text)}
+html[data-theme] .brand-copy>span,html[data-theme] .header-center{color:var(--t-muted)}
+html[data-theme] .header-guide{background:var(--t-chip-bg);color:var(--t-chip-text)}
+html[data-theme] .icon-button{background:var(--t-surface);border:1px solid var(--t-border);color:var(--t-chip-text)}
+html[data-theme] .site-footer{border-color:var(--t-border);color:var(--t-muted)}
+html[data-theme] .footer-dot{color:var(--t-accent)}
+.theme-toggle svg{width:19px;height:19px}
+
+/* Home */
+html[data-theme] .eyebrow,html[data-theme] .hero-subtitle,html[data-theme] .home-guide-link{color:var(--t-accent)}
+html[data-theme] .eyebrow::before{background:var(--t-accent);opacity:.5}
+html[data-theme] .hero-description,html[data-theme] .player-home .roll-reminder{color:var(--t-text-2)}
+html[data-theme] .tag{background:var(--t-chip-bg);color:var(--t-chip-text)}
+html[data-theme="dark"] .tag.mint{background:#173f36;color:#9fe0c4}
+html[data-theme] .mascot-orbit{background:var(--t-surface-2);border-color:var(--t-border)}
+html[data-theme] .player-rules>div{background:var(--t-surface);border-color:var(--t-border);box-shadow:var(--t-shadow)}
+html[data-theme] .player-rules strong{color:var(--t-text)}
+html[data-theme="dark"] .player-rules span{background:#183a50;color:#a9dcf2}
+html[data-theme="dark"] .player-rules>div:nth-child(2) span{background:#43291f;color:#ffbea3}
+html[data-theme="dark"] .player-rules>div:nth-child(3) span{background:#173f36;color:#9fe0c4}
+
+/* Shared buttons */
+html[data-theme] .secondary{background:var(--t-surface);border-color:var(--t-border);color:var(--t-chip-text)}
+html[data-theme] .secondary:hover{background:var(--t-surface-2)}
+
+/* Game guide */
+html[data-theme] .help-stage{color:var(--t-text)}
+html[data-theme] .help-heading h1,html[data-theme] .help-card h2{color:var(--t-text)}
+html[data-theme] .help-stage .incident-kicker{color:var(--t-accent)}
+html[data-theme] .help-progress button{background:var(--t-surface);border-color:var(--t-border);color:var(--t-muted)}
+html[data-theme] .help-progress button[aria-current]{background:var(--t-chip-bg);border-color:var(--t-accent);color:var(--t-chip-text)}
+html[data-theme] .help-card{background:var(--t-surface);border-color:var(--t-border);box-shadow:var(--t-shadow)}
+html[data-theme] .help-number{background:var(--t-chip-bg);color:var(--t-chip-text)}
+html[data-theme] .help-card p{color:var(--t-text-2)}
+html[data-theme] .help-flow{color:var(--t-chip-text)}
+html[data-theme] .help-flow span{background:var(--t-chip-bg)}
+html[data-theme] .help-flow svg{color:var(--t-muted)}
+html[data-theme] .tutorial-close{background:var(--t-surface);border-color:var(--t-border);color:var(--t-muted)}
+html[data-theme] .tutorial-navigation{border-color:var(--t-border)}
+html[data-theme] .tutorial-navigation>span{color:var(--t-muted)}
+
+/* Situation and actions */
+html[data-theme] .incident-kicker{color:var(--t-accent)}
+html[data-theme] .incident-timer{background:var(--t-surface);border-color:var(--t-border);color:var(--t-text);box-shadow:var(--t-shadow)}
+html[data-theme] .timer-caption,html[data-theme] .incident-timer .timer-unit{color:var(--t-muted)}
+html[data-theme] .timer-digits{color:var(--t-text)}
+html[data-theme] .incident-timer.urgent{background:var(--t-urgent-bg);border-color:var(--t-urgent-line)}
+html[data-theme] .incident-timer.urgent .timer-digits{color:var(--t-urgent-text)}
+html[data-theme] .incident-panel{background:var(--t-surface);border-color:var(--t-border);color:var(--t-text);box-shadow:var(--t-shadow)}
+html[data-theme] .incident-alert{background:var(--t-alert-bg);color:var(--t-alert-text)}
+html[data-theme] .incident-panel h1,html[data-theme] .action-heading h1{color:var(--t-text)}
+html[data-theme] .incident-summary{color:var(--t-text-2)}
+html[data-theme] .incident-footnote,html[data-theme] .action-footnote,html[data-theme] .incident-stage-note{color:var(--t-muted)}
+html[data-theme] .action-heading .incident-alert{background:var(--t-chip-bg);color:var(--t-chip-text)}
+html[data-theme] .action-count{border-color:var(--t-border);color:var(--t-muted)}
+html[data-theme] .action-card{background:var(--t-surface);border-top-color:var(--t-border);border-right-color:var(--t-border);border-bottom-color:var(--t-border);color:var(--t-text);box-shadow:var(--t-shadow)}
+html[data-theme] .action-copy h2{color:var(--t-accent)}
+html[data-theme] .action-copy p{color:var(--t-text)}
+
+/* Curtain */
+html[data-theme] .curtain-screen,html[data-theme] .curtain-stage{background:var(--t-stage)}
+html[data-theme] .curtain-caption{background:var(--t-surface);color:var(--t-text-2);border:1px solid var(--t-border)}
+
+/* Finished */
+html[data-theme] .finished-card{background:var(--t-surface);border-color:var(--t-border);box-shadow:var(--t-shadow)}
+html[data-theme] .finished-card h1{color:var(--t-text)}
+html[data-theme] .finished-card p:not(.incident-kicker){color:var(--t-text-2)}
+html[data-theme] .finished-emblem{background:var(--t-chip-bg);color:var(--t-chip-text)}
+
+/* Result */
+html[data-theme] .incident-result{color:var(--t-text)}
+html[data-theme] .result-heading h1{color:var(--t-text)}
+html[data-theme] .result-heading p{color:var(--t-text-2)}
+html[data-theme] .scenario-code,html[data-theme] .incident-result>.scenario-code{color:var(--t-muted)}
+html[data-theme] .recipe-card,html[data-theme] .incident-result .recipe-card{background:var(--t-surface);border-color:var(--t-border);box-shadow:var(--t-shadow)}
+html[data-theme] .incident-result .recipe-heading h2{color:var(--t-text)}
+html[data-theme] .direction,html[data-theme] .incident-result .direction{background:var(--t-chip-bg);color:var(--t-chip-text)}
+html[data-theme] .incident-result .ingredient-name{color:var(--t-accent)}
+html[data-theme] .incident-result .ingredient-action{color:var(--t-text-2)}
+html[data-theme] .incident-result .recipe-position{color:var(--t-muted)}
+html[data-theme] .debrief-card{background:var(--t-surface-2);border-color:var(--t-border)}
+html[data-theme] .debrief-card h2{color:var(--t-accent)}
+html[data-theme] .debrief-card p{color:var(--t-text)}
+html[data-theme] .answer-explanation,html[data-theme] .incident-result .answer-explanation{background:var(--t-surface);border-color:var(--t-border);color:var(--t-text)}
+html[data-theme] .answer-explanation>summary,html[data-theme] .incident-result .answer-explanation>summary{color:var(--t-accent)}
+html[data-theme] .explanation-body,html[data-theme] .incident-result .explanation-body{border-color:var(--t-border)}
+html[data-theme] .incident-result .explanation-body p,html[data-theme] .incident-result .explanation-body .explain-step p,html[data-theme] .incident-result .original-case p{color:var(--t-text-2)}
+html[data-theme] .incident-result .original-case{background:var(--t-surface-2)}
+html[data-theme] .incident-result .original-case h2,html[data-theme] .incident-result .explanation-body .explain-step strong{color:var(--t-text)}
+html[data-theme] .incident-result .explanation-body .explain-step{border-left-color:var(--t-accent)}
+html[data-theme] .incident-result .accepted-note{color:var(--t-muted)!important}
+html[data-theme] .incident-result .secondary{background:var(--t-surface);border-color:var(--t-border);color:var(--t-chip-text)}
+
+/* Settings dialog */
+html[data-theme] .modal{background:var(--t-surface);border-color:var(--t-border);color:var(--t-text)}
+html[data-theme] .modal::backdrop{background:var(--t-backdrop)}
+html[data-theme] .modal h2{color:var(--t-accent)}
+html[data-theme] .modal p,html[data-theme] .settings-modal p{color:var(--t-text-2)}
+html[data-theme] .close-button{background:var(--t-surface-2);color:var(--t-muted)}
+html[data-theme] .pool-option{background:var(--t-surface-2);border-color:var(--t-border)}
+html[data-theme] .pool-option:has(input:checked){background:var(--t-chip-bg);border-color:var(--t-accent)}
+html[data-theme] .pool-option .pool-name{color:var(--t-chip-text)}
+html[data-theme] .pool-option .pool-count,html[data-theme] .pool-all{color:var(--t-muted)}
+html[data-theme] .pool-help,html[data-theme] .settings-small{color:var(--t-muted)!important;border-color:var(--t-border)}
+
+/* Guide sample screens */
+html[data-theme] .guide-preview{background:var(--t-bg);border-color:var(--t-border);box-shadow:var(--t-shadow)}
+html[data-theme] .guide-preview figcaption{background:var(--t-surface);border-color:var(--t-border);color:var(--t-muted)}
+html[data-theme] .guide-preview .sample-assembly .recipe-card,html[data-theme] .guide-preview .recipe-heading h2{color:var(--t-text)}
+html[data-theme] .guide-preview .sample-assembly .recipe-card{background:var(--t-surface);border-color:var(--t-border)}
+html[data-theme] .guide-preview .ingredient-name{color:var(--t-accent)}html[data-theme] .guide-preview .ingredient-action{color:var(--t-text-2)}html[data-theme] .guide-preview .recipe-position{color:var(--t-muted)}
+html[data-theme] .sample-slot{background:var(--t-surface-2);border-color:var(--t-border);color:var(--t-muted)}
+html[data-theme] .sample-arrow{color:var(--t-muted)}
+html[data-theme="dark"] .cloud-diff-card{background:#2c1f1c;border-color:#5a3a30}html[data-theme="dark"] .cloud-diff-icon{background:#43291f;color:#ffb195}html[data-theme="dark"] .cloud-diff-card h2{color:#ffb195}html[data-theme="dark"] .cloud-diff-card p{color:var(--t-text)}

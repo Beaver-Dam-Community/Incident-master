@@ -1,5 +1,5 @@
 /* Display titles: Jua. Explanations and interface: locally bundled Pretendard. */
-@font-face{font-family:'Pretendard';src:url('assets/PretendardVariable.woff2') format('woff2');font-weight:45 920;font-style:normal;font-display:swap}
+
 .tutorial-progress{grid-template-columns:repeat(4,minmax(0,1fr))}
 .response-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .response-flow-card{padding:21px 23px;background:#fff;border:1px solid #dceaf2;border-radius:16px;box-shadow:0 5px 20px #497a8d05}

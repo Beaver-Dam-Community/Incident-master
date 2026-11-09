@@ -1,42 +1,69 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const reference = require('../compiled-source-reference.json');
 require('../dist/scenarios.js');
-const cards = globalThis.BOOTH_CONTENT.scenarios;
+const {scenarios, groups} = globalThis.BOOTH_CONTENT;
 
-test('all compiled titles and alphabet codes match the supplied document', () => {
-  assert.equal(cards.length, 19);
-  assert.deepEqual(cards.map(s=>[s.code,s.id,s.title]), reference.map(s=>[s.code,s.id,s.title]));
-  assert.deepEqual(cards.map(s=>s.code), 'ABCDEFGHIJKLMNOPQRS'.split(''));
+const expectedIds = ['CLOUD-CICD-01', 'CLOUD-EKS-01', 'CLOUD-WEB-01', 'CLOUD-GCP-01', 'CLOUD-AZURE-01'];
+
+test('the catalog contains exactly five newly authored cloud incident scenarios', () => {
+  assert.deepEqual(scenarios.map(scenario => scenario.id), expectedIds);
+  assert.deepEqual(scenarios.map(scenario => scenario.code), ['A', 'B', 'C', 'D', 'E']);
+  assert.equal(groups.length, 1);
+  assert.deepEqual(groups.map(group => [group.id, group.count]), [['cloud', 5]]);
+  for (const scenario of scenarios) {
+    assert.ok(scenario.title.length > 10, scenario.id);
+    assert.ok(scenario.summary.length > 100, scenario.id);
+    assert.ok(scenario.story.length > 100, scenario.id);
+    assert.ok(scenario.cloudDiff.length > 60, `${scenario.id} explains how cloud response differs`);
+  }
 });
 
-test('the 15 independent-piece document answers, actions, and alternatives are preserved', () => {
-  for (const row of reference.filter(s=>!s.id.startsWith('AI-'))) {
-    const card = cards.find(s=>s.id===row.id);
-    assert.deepEqual(card.recipe,row.recipe,row.code);
-    assert.deepEqual(card.accepted,[row.recipe,...row.accepted],row.code);
-    for (const step of card.steps) {
-      if (row.id==='BASIC-05' && step.token==='meat') assert.match(step.label,/증거 확보 후/);
-      else assert.equal(step.label,row.materials[step.token],row.code+' '+step.token);
+test('each scenario has six unique action ids, a complete recipe, and valid alternatives', () => {
+  for (const scenario of scenarios) {
+    const stepIds = scenario.steps.map(step => step.id);
+    assert.equal(new Set(stepIds).size, 6, scenario.id);
+    assert.deepEqual(scenario.recipe, stepIds, scenario.id);
+    assert.deepEqual(scenario.accepted[0], scenario.recipe, scenario.id);
+    for (const step of scenario.steps) {
+      assert.ok(step.label.length > 20, `${scenario.id} ${step.id}`);
+      assert.ok(step.shortLabel.length > 5, `${scenario.id} ${step.id}`);
+      assert.ok(step.reason.length > 20, `${scenario.id} ${step.id}`);
+    }
+    for (const order of scenario.accepted) {
+      assert.equal(order.length, 6, scenario.id);
+      assert.deepEqual([...order].sort(), [...stepIds].sort(), scenario.id);
     }
   }
 });
 
-test('the three corrected answers replace the former unsafe orders', () => {
-  const get=id=>cards.find(s=>s.id===id).recipe;
-  assert.deepEqual(get('BASIC-01'),['meat','pepper','shrimp','cheese','bacon','tomato']);
-  assert.deepEqual(get('BASIC-03'),['meat','cheese','shrimp','bacon','pepper','tomato']);
-  assert.deepEqual(get('BASIC-05'),['bacon','tomato','cheese','meat','pepper','shrimp']);
+test('investigation discovers attacker persistence before the later removal action', () => {
+  const cicd = scenarios.find(scenario => scenario.id === 'CLOUD-CICD-01');
+  const web = scenarios.find(scenario => scenario.id === 'CLOUD-WEB-01');
+  for (const scenario of [cicd, web]) {
+    const investigation = scenario.steps.findIndex(step => step.id === 'investigate');
+    const removal = scenario.steps.findIndex(step => step.id === (scenario === cicd ? 'remove-access' : 'replace-server'));
+    assert.ok(investigation >= 0 && removal > investigation, scenario.id);
+    assert.match(scenario.steps[investigation].reason, /새 계정|숨은 접속 기능|추가 접근 수단/);
+  }
 });
 
-test('AI wrapper conditions remain standalone pieces, with development-only work in S', () => {
-  const ai=cards.filter(s=>s.group==='ai');
-  assert.deepEqual(ai.map(s=>s.recipe.length),[5,4,6,5]);
-  assert.deepEqual(ai[2].recipe,['pepper','bacon','shrimp','tomato','cheese','meat']);
-  assert.deepEqual(ai[3].recipe,['tomato','pepper','cheese','bacon','meat']);
-  assert.match(ai[3].steps.find(s=>s.token==='meat').label,/개발 환경/);
-  for(const s of cards){
-    for(const step of s.steps) assert.doesNotMatch(step.label,/감쌈|감쌀 재료/);
-    for(const token of s.unused) assert.ok(s.unusedReasons[token],s.code+' '+token);
+test('the EKS scenario explains its Kubernetes and cloud-permission link in plain language', () => {
+  const eks = scenarios.find(scenario => scenario.id === 'CLOUD-EKS-01');
+  assert.match(eks.title, /EKS/);
+  assert.match(eks.summary, /Pod\)/);
+  assert.match(eks.steps.find(step => step.id === 'trace-access').label, /클라우드 권한/);
+  assert.match(eks.glossary, /Pod는/);
+});
+
+test('the Google Cloud and Azure incidents add non-AWS clouds and find persistence before removing it', () => {
+  const gcp = scenarios.find(scenario => scenario.id === 'CLOUD-GCP-01');
+  const azure = scenarios.find(scenario => scenario.id === 'CLOUD-AZURE-01');
+  assert.match(gcp.topic, /Google Cloud/);
+  assert.match(azure.topic, /Azure/);
+  for (const scenario of [gcp, azure]) {
+    const ids = scenario.steps.map(step => step.id);
+    assert.ok(ids.indexOf('investigate') < ids.indexOf(scenario === gcp ? 'remove-access' : 'rebuild'), scenario.id);
+    assert.match(scenario.steps[ids.indexOf('investigate')].reason, /새 키|새 계정/);
+    assert.equal(scenario.accepted.length, 2, scenario.id);
   }
 });

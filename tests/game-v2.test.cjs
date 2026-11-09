@@ -1,108 +1,205 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const {Game,MATERIAL_ORDER,materialGuide} = require('../dist/game-engine.js');
+const {Game, MATERIAL_ORDER, SITUATION_MS, ACTION_MS} = require('../dist/game-engine.js');
 require('../dist/scenarios.js');
-const {scenarios,groups} = globalThis.BOOTH_CONTENT;
-const setup = options => new Game(scenarios,{random:()=>.31,...options});
-function finishRound(game){game.start();assert.equal(game.reveal(),true);game.nextTeam();}
+const {scenarios, groups} = globalThis.BOOTH_CONTENT;
 
-test('all 19 scenarios and accepted alternatives use physically possible pieces',()=>{
- assert.equal(scenarios.length,19);assert.equal(new Set(scenarios.map(s=>s.id)).size,19);
- for(const s of scenarios){
-  assert.equal(new Set(s.recipe).size,s.recipe.length,s.id);
-  assert.deepEqual([...s.recipe,...s.unused].sort(),MATERIAL_ORDER.slice().sort(),s.id);
-  assert.deepEqual(s.steps.map(a=>a.token).sort(),s.recipe.slice().sort(),s.id);
-  for(const a of s.accepted)assert.deepEqual(a.slice().sort(),s.recipe.slice().sort(),s.id);
- }
- for(const g of groups)assert.equal(scenarios.filter(s=>s.group===g.id).length,g.count);
-});
-test('material cards keep one fixed unnumbered order across every scenario',()=>{
- for(const s of scenarios){
-  const guide=materialGuide(s);
-  assert.deepEqual(guide.map(item=>item.token),MATERIAL_ORDER,s.id);
-  for(const item of guide){
-   assert.equal(item.used,!s.unused.includes(item.token),s.id);
-   if(item.used)assert.equal(item.label,s.steps.find(a=>a.token===item.token).label);
-   else assert.match(item.label,/사용하지/);
-   assert.equal(Object.hasOwn(item,'position'),false);
-   assert.equal(Object.hasOwn(item,'reason'),false);
+const constantRandom = () => 0.31;
+const setup = (catalog = scenarios, options = {}) => new Game(catalog, {random: constantRandom, ...options});
+
+function completeTimedRound(game, getNow, setNow) {
+  assert.equal(game.start(), true);
+  setNow(getNow() + 100_000);
+  game.advance();
+  assert.equal(game.state.phase, 'finished');
+  assert.equal(game.reveal(), true);
+  assert.equal(game.state.phase, 'result');
+  assert.equal(game.nextTeam(), true);
+}
+
+test('the engine and catalog expose five six-action cloud incidents', () => {
+  assert.equal(scenarios.length, 5);
+  assert.equal(new Set(scenarios.map(scenario => scenario.id)).size, 5);
+  assert.equal(groups.reduce((sum, group) => sum + group.count, 0), 5);
+  for (const scenario of scenarios) {
+    assert.equal(scenario.steps.length, MATERIAL_ORDER.length, scenario.id);
+    assert.deepEqual(scenario.recipe, scenario.steps.map(step => step.id), scenario.id);
   }
- }
-});
-test('AI completed actions remain excluded and are visibly marked unused',()=>{
- const ai2=scenarios.find(s=>s.id==='AI-2'), ai4=scenarios.find(s=>s.id==='AI-4');
- assert.equal(ai2.recipe.length,4);assert.deepEqual(ai2.unused,['tomato','cheese']);assert.equal(ai4.recipe.length,5);
- assert.deepEqual(materialGuide(ai4).filter(item=>!item.used).map(item=>item.token),['shrimp']);
- assert.match(ai2.unusedLabels.tomato,/기록 보관 완료/);
- assert.match(ai4.unusedLabels.shrimp,/기록 분석 완료/);
 });
 
-test('remade AI orders preserve evidence and apply conditions before rebuilding or restarting',()=>{
- const byId=id=>scenarios.find(s=>s.id===id);
- const before=(s,a,b)=>assert.ok(s.recipe.indexOf(a)<s.recipe.indexOf(b),`${s.id}: ${a} before ${b}`);
- const ai1=byId('AI-1');assert.equal(ai1.recipe.length,5);assert.equal(ai1.recipe[0],'meat');
- assert.deepEqual(ai1.unused,['bacon']);before(ai1,'cheese','pepper');
- const ai2=byId('AI-2');assert.equal(ai2.recipe[0],'shrimp');before(ai2,'meat','pepper');before(ai2,'bacon','pepper');
- const ai3=byId('AI-3');assert.equal(ai3.recipe.length,6);assert.deepEqual(ai3.recipe.slice(0,2),['pepper','bacon']);
- before(ai3,'shrimp','tomato');before(ai3,'cheese','meat');
- const ai4=byId('AI-4');assert.equal(ai4.recipe[0],'tomato');before(ai4,'pepper','cheese');before(ai4,'bacon','meat');
-});
-test('answer stays hidden until the facilitator explicitly reveals it',()=>{
- const game=setup();assert.equal(game.reveal(),false);game.draw();assert.equal(game.reveal(),false);
- game.start();assert.equal(game.state.phase,'playing');assert.equal(game.state.outcome,null);
- const id=game.scenario.id;assert.equal(game.nextTeam(),false);assert.equal(game.draw(),false);
- assert.equal(game.reveal(),true);assert.equal(game.state.phase,'result');assert.equal(game.state.outcome,'revealed');assert.equal(game.scenario.id,id);
- assert.equal(game.reveal(),false);assert.equal(game.start(),false);assert.equal(game.nextTeam(),true);assert.equal(game.state.phase,'home');
-});
-test('shuffle bag exhausts all scenarios and avoids consecutive repeats at boundaries',()=>{
- const game=setup();let previous=null;
- for(let bag=0;bag<4;bag++){
-  const seen=new Set();
-  for(let i=0;i<19;i++){const s=game.draw();assert.notEqual(s.id,previous);assert.ok(!seen.has(s.id));seen.add(s.id);previous=s.id;finishRound(game);}
-  assert.equal(seen.size,19);
- }
-});
-test('pool is nonempty and can change only between teams',()=>{
- const game=setup();assert.equal(game.setPool([]),false);assert.equal(game.setPool(['unknown']),false);assert.equal(game.setPool(['ai']),true);
- for(let i=0;i<9;i++){assert.equal(game.draw().group,'ai');assert.equal(game.setPool(['cloud']),false);finishRound(game);}
-});
-test('reload preserves the same scenario and hidden or revealed state',()=>{
- const game=setup();game.draw();
- const check=()=>{const restored=setup({snapshot:JSON.parse(JSON.stringify(game.snapshot()))});assert.deepEqual(restored.state,game.state);assert.deepEqual(restored.pool,game.pool);return restored;};
- check();game.start();check();game.reveal();check();
-});
-test('old pending judgments become hidden playing rounds, without requiring input',()=>{
- for(const pauseReason of ['judge','break']){
-  const game=setup({snapshot:{version:2,pool:['ai'],bag:[],state:{phase:'paused',scenarioId:'AI-1',pauseReason}}});
-  assert.equal(game.state.phase,'playing');assert.equal(game.state.outcome,null);assert.equal(game.scenario.id,'AI-1');assert.equal(game.reveal(),true);
- }
- const game=setup({snapshot:{version:2,pool:['ai'],bag:[],state:{phase:'result',scenarioId:'AI-1',outcome:'success'}}});
- assert.equal(game.state.phase,'result');assert.equal(game.state.outcome,'revealed');
-});
-test('old timed rounds migrate to fresh home while retaining scenario pool',()=>{
- const old={version:1,pool:['ai'],bag:['AI-2'],lastId:'AI-1',state:{phase:'playing',scenarioId:'AI-1',deadline:1,remainingMs:1000}};
- const game=setup({snapshot:old});assert.equal(game.state.phase,'home');assert.deepEqual(game.pool,['ai']);assert.deepEqual(game.bag,['AI-2']);assert.equal(game.state.outcome,null);
-});
-test('invalid saved state falls back to a fresh round',()=>{
- for(const state of [{phase:'playing',scenarioId:'unknown'},{phase:'result',scenarioId:'AI-1',outcome:'timeout'},{phase:'anything',scenarioId:'AI-1'}]){
-  const game=setup({snapshot:{version:3,pool:['ai'],bag:['unknown','AI-2','AI-2'],state}});assert.equal(game.state.phase,'home');assert.deepEqual(game.bag,['AI-2']);
- }
+test('drawing assigns all six materials and shuffles action cards separately from the answer', () => {
+  const game = setup();
+  const scenario = game.draw();
+  assert.ok(scenario);
+  assert.equal(game.state.phase, 'ready');
+  assert.deepEqual(Object.values(game.state.materialByStep).sort(), [...MATERIAL_ORDER].sort());
+  assert.deepEqual([...game.state.actionOrder].sort(), scenario.steps.map(step => step.id).sort());
+  assert.notDeepEqual(game.state.actionOrder, scenario.recipe);
+  assert.deepEqual(game.round.actions.map(step => step.id), game.state.actionOrder);
+  assert.deepEqual(game.round.recipe.map(step => step.id), scenario.recipe);
+  assert.deepEqual(game.round.recipe.map(step => step.token), scenario.recipe.map(id => game.state.materialByStep[id]));
 });
 
-test('count-up time survives reload, freezes on reveal, and resets for the next team',()=>{
- let now=10000;
- const game=setup({now:()=>now});game.draw();game.start();
- assert.equal(game.elapsedSeconds,0);
- now+=65000;assert.equal(game.elapsedSeconds,65);
- const restored=setup({now:()=>now,snapshot:JSON.parse(JSON.stringify(game.snapshot()))});
- assert.equal(restored.elapsedSeconds,65);
- now+=2000;restored.reveal();assert.equal(restored.elapsedSeconds,67);
- now+=60000;assert.equal(restored.elapsedSeconds,67);
- const finished=setup({now:()=>now,snapshot:restored.snapshot()});assert.equal(finished.elapsedSeconds,67);
- finished.nextTeam();finished.draw();finished.start();assert.equal(finished.elapsedSeconds,0);
+test('each stage uses the intended 10-second and 50-second limits with curtain transitions', () => {
+  let now = 50_000;
+  const game = setup(scenarios, {now: () => now, curtainCloseMs: 400, curtainOpenMs: 400});
+  game.draw();
+  assert.equal(game.start(), true);
+  assert.equal(game.state.phase, 'situation');
+  assert.equal(game.remainingSeconds, 10);
+  now += SITUATION_MS - 1;
+  assert.equal(game.advance(), false);
+  assert.equal(game.remainingSeconds, 1);
+  now += 1;
+  assert.equal(game.advance(), true);
+  assert.equal(game.state.phase, 'curtain-close');
+  assert.equal(game.reveal(), false);
+  now += 400;
+  game.advance();
+  assert.equal(game.state.phase, 'curtain-open');
+  now += 400;
+  game.advance();
+  assert.equal(game.state.phase, 'actions');
+  assert.equal(game.remainingSeconds, 50);
+  assert.equal(game.state.phaseEndsAt, now + ACTION_MS);
+  now += ACTION_MS - 1;
+  assert.equal(game.advance(), false);
+  assert.equal(game.remainingSeconds, 1);
+  now += 1;
+  game.advance();
+  assert.equal(game.state.phase, 'finished');
+  assert.equal(game.remainingSeconds, null);
+  assert.equal(game.reveal(), true);
+  assert.equal(game.state.phase, 'result');
 });
 
-test('existing untimed playing rounds get a fresh count-up start without losing their order',()=>{
- const game=setup({now:()=>10000,snapshot:{version:3,pool:['ai'],state:{phase:'playing',scenarioId:'AI-1'}}});
- assert.equal(game.scenario.id,'AI-1');assert.equal(game.state.phase,'playing');assert.equal(game.elapsedSeconds,0);
+test('scenario shuffle bag avoids repeats until all five incidents have appeared', () => {
+  let now = 0;
+  const game = setup(scenarios, {now: () => now, curtainCloseMs: 0, curtainOpenMs: 0});
+  let previous = null;
+  for (let cycle = 0; cycle < 4; cycle += 1) {
+    const seen = new Set();
+    for (let index = 0; index < scenarios.length; index += 1) {
+      const scenario = game.draw();
+      assert.notEqual(scenario.id, previous);
+      assert.ok(!seen.has(scenario.id));
+      seen.add(scenario.id);
+      previous = scenario.id;
+      completeTimedRound(game, () => now, value => { now = value; });
+    }
+    assert.equal(seen.size, scenarios.length);
+  }
+});
+
+test('a repeated scenario gets a different material map and a different card order', () => {
+  let now = 10_000;
+  const game = setup([scenarios[0]], {now: () => now});
+  game.draw();
+  const firstMap = {...game.state.materialByStep};
+  const firstOrder = [...game.state.actionOrder];
+  completeTimedRound(game, () => now, value => { now = value; });
+  game.draw();
+  assert.notDeepEqual(game.state.materialByStep, firstMap);
+  assert.notDeepEqual(game.state.actionOrder, firstOrder);
+});
+
+test('the current shuffle and timed phase survive reload without revealing the answer', () => {
+  let now = 20_000;
+  const game = setup(scenarios, {now: () => now});
+  game.draw();
+  game.start();
+  const savedSituation = JSON.parse(JSON.stringify(game.snapshot()));
+  const restoredSituation = setup(scenarios, {now: () => now, snapshot: savedSituation});
+  assert.deepEqual(restoredSituation.state, game.state);
+  assert.deepEqual(restoredSituation.round, game.round);
+  assert.equal(restoredSituation.state.phase, 'situation');
+  assert.equal(restoredSituation.reveal(), false);
+
+  now += SITUATION_MS;
+  restoredSituation.advance();
+  now += 1_000;
+  restoredSituation.advance();
+  const savedActions = JSON.parse(JSON.stringify(restoredSituation.snapshot()));
+  const restoredActions = setup(scenarios, {now: () => now, snapshot: savedActions});
+  assert.deepEqual(restoredActions.state, restoredSituation.state);
+  assert.deepEqual(restoredActions.round, restoredSituation.round);
+  assert.equal(restoredActions.state.phase, 'actions');
+});
+
+test('only the explicit answer button can reveal the answer after the timer ends', () => {
+  let now = 0;
+  const game = setup(scenarios, {now: () => now, curtainCloseMs: 0, curtainOpenMs: 0});
+  assert.equal(game.reveal(), false);
+  game.draw();
+  assert.equal(game.reveal(), false);
+  game.start();
+  assert.equal(game.state.phase, 'situation');
+  assert.equal(game.reveal(), false);
+  now += SITUATION_MS;
+  game.advance();
+  assert.equal(game.state.phase, 'actions');
+  assert.equal(game.reveal(), false);
+  now += ACTION_MS;
+  game.advance();
+  assert.equal(game.state.phase, 'finished');
+  assert.equal(game.reveal(), true);
+  assert.equal(game.reveal(), false);
+  assert.equal(game.nextTeam(), true);
+  assert.equal(game.state.phase, 'home');
+});
+
+test('scenario groups can only change between teams and cannot be empty', () => {
+  const game = setup();
+  assert.equal(game.setPool([]), false);
+  assert.equal(game.setPool(['unknown']), false);
+  assert.equal(game.setPool(['cloud']), true);
+  game.draw();
+  assert.equal(game.setPool(['cloud']), false);
+});
+
+test('invalid and legacy snapshots safely return to the home screen', () => {
+  const invalid = setup(scenarios, {snapshot: {version: 4, state: {phase: 'actions', scenarioId: 'unknown'}}});
+  assert.equal(invalid.state.phase, 'home');
+  const malformed = setup(scenarios, {snapshot: {version: 4, state: {phase: 'result', scenarioId: scenarios[0].id, outcome: 'revealed', materialByStep: {bad: 'tomato'}, actionOrder: []}}});
+  assert.equal(malformed.state.phase, 'home');
+  const old = setup(scenarios, {snapshot: {version: 3, state: {phase: 'playing', scenarioId: 'BASIC-01'}}});
+  assert.equal(old.state.phase, 'home');
+});
+
+test('an expired saved timer advances to the correct stage after reload', () => {
+  let now = 1_000;
+  const game = setup(scenarios, {now: () => now, curtainCloseMs: 0, curtainOpenMs: 0});
+  game.draw();
+  game.start();
+  now += SITUATION_MS;
+  game.advance();
+  const snapshot = JSON.parse(JSON.stringify(game.snapshot()));
+  now += ACTION_MS;
+  const restored = setup(scenarios, {now: () => now, curtainCloseMs: 0, curtainOpenMs: 0, snapshot});
+  restored.advance();
+  assert.equal(restored.state.phase, 'finished');
+});
+
+test('the host can end the situation or action stage early without revealing the answer', () => {
+  let now = 10_000;
+  const game = setup(scenarios, {now: () => now, curtainCloseMs: 400, curtainOpenMs: 400});
+  assert.equal(game.skip(), false);
+  game.draw();
+  assert.equal(game.skip(), false);
+  game.start();
+  now += 2_000;
+  assert.equal(game.skip(), true);
+  assert.equal(game.state.phase, 'curtain-close');
+  assert.equal(game.skip(), false);
+  now += 800;
+  game.advance();
+  assert.equal(game.state.phase, 'actions');
+  assert.equal(game.remainingSeconds, ACTION_MS / 1000);
+  now += 5_000;
+  assert.equal(game.skip(), true);
+  assert.equal(game.state.phase, 'finished');
+  assert.equal(game.state.finishedAt, now);
+  assert.equal(game.state.outcome, null);
+  assert.equal(game.skip(), false);
+  assert.equal(game.reveal(), true);
 });
