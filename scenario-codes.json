@@ -1,21 +1,7 @@
 {
-  "BASIC-01": "A",
-  "BASIC-02": "B",
-  "BASIC-03": "C",
-  "BASIC-04": "D",
-  "BASIC-05": "E",
-  "RINA-01": "F",
-  "RINA-02": "G",
-  "RINA-03": "H",
-  "RINA-04": "I",
-  "CLOUD-01": "J",
-  "CLOUD-02": "K",
-  "CLOUD-03": "L",
-  "CLOUD-04": "M",
-  "CLOUD-05": "N",
-  "CLOUD-06": "O",
-  "AI-1": "P",
-  "AI-2": "Q",
-  "AI-3": "R",
-  "AI-4": "S"
+  "CLOUD-CICD-01": "A",
+  "CLOUD-EKS-01": "B",
+  "CLOUD-WEB-01": "C",
+  "CLOUD-GCP-01": "D",
+  "CLOUD-AZURE-01": "E"
 }

@@ -3,18 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4fbff">
-  <meta name="description" content="BEAVER DAM 클라우드 사고 대응 꼬치 게임. 사고와 재료 안내를 읽고 시간 제한 없이 조립해요. 정답 꼬치는 체험 종료 후 공개합니다.">
+  <meta name="theme-color" content="#f4f9fc">
+  <meta name="description" content="클라우드 침해사고 상황을 읽고 50초 안에 실제 꼬치로 대응 순서를 정하는 BEAVER DAM 부스 게임입니다.">
   <title>침해대응의 달인 · BEAVER DAM</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="preload" href="assets/Jua-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="assets/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=8">
-  <link rel="stylesheet" href="participant.css?v=15">
-  <link rel="stylesheet" href="typography.css?v=20">
-  <script defer src="scenarios.js?v=18"></script>
-  <script defer src="game-engine.js?v=11"></script>
-  <script defer src="app.js?v=20"></script>
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png?v=1">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=1">
+  <script>
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem('beaver-dam-theme'); } catch (_) {}
+      if (theme !== 'light' && theme !== 'dark') theme = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="stylesheet" href="fonts.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="participant.css?v=21">
+  <link rel="stylesheet" href="typography.css?v=21">
+  <link rel="stylesheet" href="theme.css?v=3">
+  <script defer src="scenarios.js?v=20"></script>
+  <script defer src="game-engine.js?v=13"></script>
+  <script defer src="app.js?v=24"></script>
 </head>
 <body>
   <div class="page-halo halo-one" aria-hidden="true"></div>
@@ -27,6 +36,7 @@
     <div class="header-center"><span class="tiny-dot"></span> DIGITAL FORENSICS WEEK 2026</div>
     <nav class="header-actions" aria-label="화면 도구">
       <button class="header-guide" data-action="guide-open">게임 방법</button>
+      <button class="icon-button theme-toggle" id="theme-toggle" aria-label="어두운 테마로 바꾸기" title="어두운 테마로 바꾸기"></button>
       <button class="icon-button" id="sound-toggle" aria-label="소리 켜기" title="소리 켜기"></button>
       <button class="icon-button" id="fullscreen-toggle" aria-label="전체 화면" title="전체 화면"></button>
       <button class="icon-button" id="settings-open" aria-label="시나리오 설정" title="시나리오 설정"><span id="settings-icon"></span></button>
